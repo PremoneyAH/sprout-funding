@@ -62,6 +62,34 @@ export function ResultsView({ onBack }: ResultsViewProps) {
         <ChecklistSection block={otras} />
         <ChecklistSection block={deducciones} />
 
+        <div className="section-card overflow-hidden">
+          <div className="bg-primary px-4 py-3">
+            <h3 className="font-bold text-primary-foreground">Ponte en contacto con nosotros</h3>
+          </div>
+          <div className="p-4 flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://premoney.es/contacto"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+            >
+              <Button variant="default" size="lg" className="w-full font-bold text-base h-14 rounded-xl">
+                premoney.es/contacto
+              </Button>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/albertohospitalmarco/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1"
+            >
+              <Button variant="outline" size="lg" className="w-full font-bold text-base h-14 rounded-xl">
+                LinkedIn
+              </Button>
+            </a>
+          </div>
+        </div>
+
         <Button
           onClick={onBack}
           variant="outline"

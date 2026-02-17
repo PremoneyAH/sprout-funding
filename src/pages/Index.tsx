@@ -1,13 +1,20 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { FormProvider } from "@/lib/store";
+import { WelcomeScreen } from "@/components/WelcomeScreen";
+import { FormView } from "@/components/FormView";
+import { ResultsView } from "@/components/ResultsView";
+
+type View = "welcome" | "form" | "results";
 
 const Index = () => {
+  const [view, setView] = useState<View>("welcome");
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <FormProvider>
+      {view === "welcome" && <WelcomeScreen onStart={() => setView("form")} />}
+      {view === "form" && <FormView onSubmit={() => setView("results")} />}
+      {view === "results" && <ResultsView onBack={() => setView("form")} />}
+    </FormProvider>
   );
 };
 

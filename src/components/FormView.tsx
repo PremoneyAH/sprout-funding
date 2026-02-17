@@ -3,7 +3,7 @@ import { CCAA_LIST } from "@/lib/constants";
 import { patrimonioNeto, runway } from "@/lib/calculations";
 import { CurrencyInput } from "./CurrencyInput";
 import { DropdownField } from "./DropdownField";
-import { FieldTooltip } from "./FieldTooltip";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -118,10 +118,10 @@ export function FormView({ onSubmit }: FormViewProps) {
             tooltip="Gasto operativo mensual medio de los últimos 3 meses, sin contar financiación"
           />
           <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-foreground">
-              A5 — Runway (meses)
-              <FieldTooltip text="Meses de supervivencia con la caja actual. Puedes sobreescribirlo manualmente." />
-            </Label>
+            <div>
+              <Label className="text-sm font-medium text-foreground">A5 — Runway (meses)</Label>
+              <p className="text-xs italic text-muted-foreground mt-0.5">Meses de supervivencia con la caja actual. Puedes sobreescribirlo manualmente.</p>
+            </div>
             <Input
               type="number"
               value={data.runway_override ?? (rw || "")}
@@ -138,9 +138,8 @@ export function FormView({ onSubmit }: FormViewProps) {
 
         {/* Section B */}
         <Section id="B" title="Balance de Situación">
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            <FieldTooltip text="Si no tenéis Año -2, déjalo a 0" />
-            Introduce los datos de Año -1 y Año -2
+          <p className="text-xs italic text-muted-foreground">
+            Si no tenéis Año -2, déjalo a 0. Introduce los datos de Año -1 y Año -2
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             <BalanceFields
@@ -159,10 +158,10 @@ export function FormView({ onSubmit }: FormViewProps) {
         {/* Section C */}
         <Section id="C" title="Datos ENISA">
           <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-foreground">
-              C1 — Fecha última ampliación de capital
-              <FieldTooltip text="Fecha del último aumento de capital social registrado" />
-            </Label>
+            <div>
+              <Label className="text-sm font-medium text-foreground">C1 — Fecha última ampliación de capital</Label>
+              <p className="text-xs italic text-muted-foreground mt-0.5">Fecha del último aumento de capital social registrado</p>
+            </div>
             <Input
               type="date"
               value={data.fecha_ampliacion}
@@ -182,10 +181,10 @@ export function FormView({ onSubmit }: FormViewProps) {
             tooltip="Si tienes notas convertibles pendientes de convertir, indica el importe. Si no, pon 0"
           />
           <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-foreground">
-              C4 — Fecha conversión notas
-              <FieldTooltip text="Fecha prevista de conversión. Si no aplica, dejar vacío" />
-            </Label>
+            <div>
+              <Label className="text-sm font-medium text-foreground">C4 — Fecha conversión notas</Label>
+              <p className="text-xs italic text-muted-foreground mt-0.5">Fecha prevista de conversión. Si no aplica, dejar vacío</p>
+            </div>
             <Input
               type="date"
               value={data.fecha_conversion_notas}

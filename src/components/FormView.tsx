@@ -3,6 +3,7 @@ import { CCAA_LIST } from "@/lib/constants";
 import { patrimonioNeto, runway } from "@/lib/calculations";
 import { CurrencyInput } from "./CurrencyInput";
 import { DropdownField } from "./DropdownField";
+import { BalanceUpload } from "./BalanceUpload";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -138,6 +139,9 @@ export function FormView({ onSubmit }: FormViewProps) {
 
         {/* Section B */}
         <Section id="B" title="Balance de Situación">
+          <BalanceUpload
+            onParsed={(y1, y2) => update({ balance_y1: y1, balance_y2: y2 })}
+          />
           <p className="text-xs italic text-muted-foreground">
             Si no tenéis Año -2, déjalo a 0. Introduce los datos de Año -1 y Año -2
           </p>

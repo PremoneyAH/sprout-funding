@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FieldTooltip } from "./FieldTooltip";
 
 interface DropdownFieldProps {
   label: string;
@@ -14,10 +13,10 @@ interface DropdownFieldProps {
 export function DropdownField({ label, value, onChange, options, tooltip, placeholder }: DropdownFieldProps) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-sm font-medium text-foreground">
-        {label}
-        {tooltip && <FieldTooltip text={tooltip} />}
-      </Label>
+      <div>
+        <Label className="text-sm font-medium text-foreground">{label}</Label>
+        {tooltip && <p className="text-xs italic text-muted-foreground mt-0.5">{tooltip}</p>}
+      </div>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger>
           <SelectValue placeholder={placeholder || "Seleccionar..."} />

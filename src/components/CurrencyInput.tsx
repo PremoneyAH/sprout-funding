@@ -1,6 +1,5 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FieldTooltip } from "./FieldTooltip";
 
 interface CurrencyInputProps {
   label: string;
@@ -13,10 +12,10 @@ interface CurrencyInputProps {
 export function CurrencyInput({ label, value, onChange, tooltip, disabled }: CurrencyInputProps) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-sm font-medium text-foreground">
-        {label}
-        {tooltip && <FieldTooltip text={tooltip} />}
-      </Label>
+      <div>
+        <Label className="text-sm font-medium text-foreground">{label}</Label>
+        {tooltip && <p className="text-xs italic text-muted-foreground mt-0.5">{tooltip}</p>}
+      </div>
       <div className="relative">
         <Input
           type="number"

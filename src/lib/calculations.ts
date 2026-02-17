@@ -92,62 +92,62 @@ export function evaluateENISA(d: FormData): ChecklistBlock {
   const crisisY1 = empresaCrisisDirectiva(d.balance_y1);
 
   // E1
-  const e1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "E1 — Domicilio fiscal" } : { ...ok(), label: "E1 — Domicilio fiscal" };
+  const e1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "Domicilio fiscal" } : { ...ok(), label: "Domicilio fiscal" };
 
   // E2
   const e2Audita = d.audita === "Sí";
   const e2: CriterionResult = {
-    label: "E2 — Auditoría",
+    label: "Auditoría",
     status: d.audita || "—",
     type: e2Audita ? "ok" : d.audita === "No" ? "fail" : "info",
   };
 
   // E3
   const e3 = th && rw > th.runwayMin
-    ? { ...ok(), label: "E3 — Runway mínimo" }
-    : { ...fail(), label: "E3 — Runway mínimo" };
+    ? { ...ok(), label: "Runway mínimo" }
+    : { ...fail(), label: "Runway mínimo" };
 
   // E4
   const e4 = pnY1 > 0 && crisisY1 === "EMPRESA SOLVENTE"
-    ? { ...ok(), label: "E4 — Fondos propios positivos" }
-    : { ...fail(), label: "E4 — Fondos propios positivos" };
+    ? { ...ok(), label: "Fondos propios positivos" }
+    : { ...fail(), label: "Fondos propios positivos" };
 
   // E5
   const mesesAmp = monthsDiff(d.fecha_ampliacion, hoy);
   const e5 = th && mesesAmp < th.mesesMaxAmpliacion
-    ? { ...ok(), label: "E5 — Fecha última ampliación" }
-    : { ...fail(), label: "E5 — Fecha última ampliación" };
+    ? { ...ok(), label: "Fecha última ampliación" }
+    : { ...fail(), label: "Fecha última ampliación" };
 
   // E6
   const e6 = th && d.importe_ampliacion >= th.importeMinAmpliacion
-    ? { ...ok(), label: "E6 — Importe ampliación" }
-    : { ...fail(), label: "E6 — Importe ampliación" };
+    ? { ...ok(), label: "Importe ampliación" }
+    : { ...fail(), label: "Importe ampliación" };
 
   // E7
   let e7: CriterionResult;
   if (d.notas_convertibles === 0 || !d.fecha_conversion_notas) {
-    e7 = { ...ok(), label: "E7 — Fecha conversión notas" };
+    e7 = { ...ok(), label: "Fecha conversión notas" };
   } else {
     const mesesConv = monthsDiff(d.fecha_conversion_notas, hoy);
     e7 = mesesConv < 6 && mesesConv > 0
-      ? { ...ok(), label: "E7 — Fecha conversión notas" }
-      : { ...fail(), label: "E7 — Fecha conversión notas" };
+      ? { ...ok(), label: "Fecha conversión notas" }
+      : { ...fail(), label: "Fecha conversión notas" };
   }
 
   // E8
   const e8 = d.notas_convertibles > 100000
-    ? { ...fail(), label: "E8 — Importe notas convertibles" }
-    : { ...ok(), label: "E8 — Importe notas convertibles" };
+    ? { ...fail(), label: "Importe notas convertibles" }
+    : { ...ok(), label: "Importe notas convertibles" };
 
   // E9
   const e9 = d.tiene_revenue === "Sí"
-    ? { ...ok(), label: "E9 — Revenue devengado 6 meses" }
-    : { ...fail(), label: "E9 — Revenue devengado 6 meses" };
+    ? { ...ok(), label: "Revenue devengado 6 meses" }
+    : { ...fail(), label: "Revenue devengado 6 meses" };
 
   // E10
   const e10 = d.tax_lease === "No"
-    ? { ...ok(), label: "E10 — Tax lease" }
-    : { ...fail(), label: "E10 — Tax lease" };
+    ? { ...ok(), label: "Tax lease" }
+    : { ...fail(), label: "Tax lease" };
 
   // Conclusion
   const viaAmpliacion = e5.type === "ok" && e6.type === "ok";
@@ -177,19 +177,19 @@ export function evaluateCDTI(d: FormData): ChecklistBlock {
   const ccaa = d.ccaa as CCAA;
   const th = ccaa ? CCAA_THRESHOLDS[ccaa] : null;
 
-  const c1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "C1 — Domicilio fiscal" } : { ...ok(), label: "C1 — Domicilio fiscal" };
+  const c1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "Domicilio fiscal" } : { ...ok(), label: "Domicilio fiscal" };
 
   const crisisY1 = empresaCrisisCDTI(d.balance_y1);
   const crisisY2 = empresaCrisisCDTI(d.balance_y2);
   const c2 = crisisY1 === "Empresa Solvente" && crisisY2 === "Empresa Solvente"
-    ? { ...ok(), label: "C2 — Empresa en crisis" }
-    : { ...fail(), label: "C2 — Empresa en crisis" };
+    ? { ...ok(), label: "Empresa en crisis" }
+    : { ...fail(), label: "Empresa en crisis" };
 
-  const c3 = { ...c2, label: "C3 — Dos años de histórico" };
+  const c3 = { ...c2, label: "Dos años de histórico" };
 
   const c4 = th && d.gasto_inhouse_n1 > th.minGastoIdiCdti
-    ? { ...ok(), label: "C4 — Gasto I+D+i in-house" }
-    : { ...fail(), label: "C4 — Gasto I+D+i in-house" };
+    ? { ...ok(), label: "Gasto I+D+i in-house" }
+    : { ...fail(), label: "Gasto I+D+i in-house" };
 
   const cdtiOk = c1.type === "ok" && c2.type === "ok" && c3.type === "ok" && c4.type === "ok";
 
@@ -244,21 +244,21 @@ export function evaluateDeducciones(d: FormData): ChecklistBlock {
   const gastoN1 = (d.gasto_idi_deducciones_n1 ?? d.gasto_idi_n1) - d.gasto_subvencionado_n1;
   const gastoN = (d.gasto_idi_deducciones_n ?? d.gasto_idi_n) - d.gasto_subvencionado_n;
 
-  const df1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "DF1 — Domicilio fiscal" } : { ...ok(), label: "DF1 — Domicilio fiscal" };
-  const df2 = d.ip_espana === "Sí" ? { ...ok(), label: "DF2 — PI en España" } : { ...fail(), label: "DF2 — PI en España" };
-  const df3 = gastoN >= minGasto ? { ...ok(), label: "DF3 — Gasto I+D+i (N)" } : { ...fail(), label: "DF3 — Gasto I+D+i (N)" };
-  const df4 = gastoN1 >= minGasto ? { ...ok(), label: "DF4 — Gasto I+D+i (N-1)" } : { ...fail(), label: "DF4 — Gasto I+D+i (N-1)" };
-  const df5 = gastoN2 >= minGasto ? { ...ok(), label: "DF5 — Gasto I+D+i (N-2)" } : { ...fail(), label: "DF5 — Gasto I+D+i (N-2)" };
+  const df1 = ccaa === "Otro" || !ccaa ? { ...fail(), label: "Domicilio fiscal" } : { ...ok(), label: "Domicilio fiscal" };
+  const df2 = d.ip_espana === "Sí" ? { ...ok(), label: "PI en España" } : { ...fail(), label: "PI en España" };
+  const df3 = gastoN >= minGasto ? { ...ok(), label: "Gasto I+D+i (N)" } : { ...fail(), label: "Gasto I+D+i (N)" };
+  const df4 = gastoN1 >= minGasto ? { ...ok(), label: "Gasto I+D+i (N-1)" } : { ...fail(), label: "Gasto I+D+i (N-1)" };
+  const df5 = gastoN2 >= minGasto ? { ...ok(), label: "Gasto I+D+i (N-2)" } : { ...fail(), label: "Gasto I+D+i (N-2)" };
 
   let df6: CriterionResult;
   if (d.sello_pyme === "Sí") {
-    df6 = { ...ok(), label: "DF6 — Sello Pyme Innovadora" };
+    df6 = { ...ok(), label: "Sello Pyme Innovadora" };
   } else if (d.bonifica_ss === "Sí") {
-    df6 = { ...warn("Lo necesita"), label: "DF6 — Sello Pyme Innovadora" };
+    df6 = { ...warn("Lo necesita"), label: "Sello Pyme Innovadora" };
   } else if (df3.type === "fail") {
-    df6 = { ...fail(), label: "DF6 — Sello Pyme Innovadora" };
+    df6 = { ...fail(), label: "Sello Pyme Innovadora" };
   } else {
-    df6 = { label: "DF6 — Sello Pyme Innovadora", status: "—", type: "info" };
+    df6 = { label: "Sello Pyme Innovadora", status: "—", type: "info" };
   }
 
   const dedOk =

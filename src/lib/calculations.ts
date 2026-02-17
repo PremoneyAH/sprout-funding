@@ -31,8 +31,12 @@ export function runway(d: FormData): number {
 
 function monthsDiff(dateStr: string, ref: Date): number {
   if (!dateStr) return Infinity;
-  const d = new Date(dateStr);
-  return Math.abs((ref.getTime() - d.getTime()) / (1000 * 60 * 60 * 24 * 30.5));
+  // Parse as local date to avoid UTC shift
+  const [y, m, d] = dateStr.split("-").map(Number);
+  if (!y || !m || !d) return Infinity;
+  const parsed = new Date(y, m - 1, d);
+  const refLocal = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate());
+  return Math.abs((refLocal.getTime() - parsed.getTime()) / (1000 * 60 * 60 * 24 * 30.5));
 }
 
 // ─── Empresa en crisis — Directiva Europea (ENISA) ─────────

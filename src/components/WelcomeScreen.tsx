@@ -1,6 +1,7 @@
 import { DISCLAIMER } from "@/lib/constants";
 import { CheckCircle, XCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import premmoneyLogo from "@/assets/premoney-logo.png";
 
 interface WelcomeScreenProps {
   onStart: () => void;
@@ -12,9 +13,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
       <div className="max-w-2xl w-full animate-fade-in">
         {/* Header */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary text-primary-foreground font-display font-extrabold text-2xl mb-6">
-            P
-          </div>
+          <img src={premmoneyLogo} alt="Premoney" className="h-20 mx-auto mb-6" />
           <h1 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-3">
             PLANTILLA DE FINANCIACIÓN PÚBLICA
           </h1>

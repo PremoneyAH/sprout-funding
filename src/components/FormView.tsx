@@ -92,34 +92,34 @@ export function FormView({ onSubmit }: FormViewProps) {
         {/* Section A */}
         <Section id="A" title="Datos genéricos" defaultOpen>
           <DropdownField
-            label="A1 — Comunidad Autónoma"
+            label="Comunidad Autónoma"
             value={data.ccaa}
             onChange={v => update({ ccaa: v as any })}
             options={[...CCAA_LIST]}
             tooltip="Selecciona la CCAA donde tenéis el domicilio fiscal de la sociedad"
           />
           <DropdownField
-            label="A2 — ¿Auditáis cuentas anuales?"
+            label="¿Auditáis cuentas anuales?"
             value={data.audita}
             onChange={v => update({ audita: v as any })}
             options={["Sí", "No"]}
             tooltip="¿La empresa presenta cuentas anuales auditadas?"
           />
           <CurrencyInput
-            label="A3 — Caja en banco actual"
+            label="Caja en banco actual"
             value={data.caja}
             onChange={v => update({ caja: v })}
             tooltip="Importe de tesorería disponible hoy en cuentas bancarias"
           />
           <CurrencyInput
-            label="A4 — Gasto mensual promedio (últimos 3 meses)"
+            label="Gasto mensual promedio (últimos 3 meses)"
             value={data.gasto_mensual}
             onChange={v => update({ gasto_mensual: v })}
             tooltip="Gasto operativo mensual medio de los últimos 3 meses, sin contar financiación"
           />
           <div className="space-y-1.5">
             <div>
-              <Label className="text-sm font-medium text-foreground">A5 — Runway (meses)</Label>
+              <Label className="text-sm font-medium text-foreground">Runway (meses)</Label>
               <p className="text-xs italic text-muted-foreground mt-0.5">Meses de supervivencia con la caja actual. Puedes sobreescribirlo manualmente.</p>
             </div>
             <Input
@@ -159,7 +159,7 @@ export function FormView({ onSubmit }: FormViewProps) {
         <Section id="C" title="Datos ENISA">
           <div className="space-y-1.5">
             <div>
-              <Label className="text-sm font-medium text-foreground">C1 — Fecha última ampliación de capital</Label>
+              <Label className="text-sm font-medium text-foreground">Fecha última ampliación de capital</Label>
               <p className="text-xs italic text-muted-foreground mt-0.5">Fecha del último aumento de capital social registrado</p>
             </div>
             <Input
@@ -169,20 +169,20 @@ export function FormView({ onSubmit }: FormViewProps) {
             />
           </div>
           <CurrencyInput
-            label="C2 — Importe última ampliación"
+            label="Importe última ampliación"
             value={data.importe_ampliacion}
             onChange={v => update({ importe_ampliacion: v })}
             tooltip="Importe en euros de la última ampliación"
           />
           <CurrencyInput
-            label="C3 — Notas convertibles pendientes"
+            label="Notas convertibles pendientes"
             value={data.notas_convertibles}
             onChange={v => update({ notas_convertibles: v })}
             tooltip="Si tienes notas convertibles pendientes de convertir, indica el importe. Si no, pon 0"
           />
           <div className="space-y-1.5">
             <div>
-              <Label className="text-sm font-medium text-foreground">C4 — Fecha conversión notas</Label>
+              <Label className="text-sm font-medium text-foreground">Fecha conversión notas</Label>
               <p className="text-xs italic text-muted-foreground mt-0.5">Fecha prevista de conversión. Si no aplica, dejar vacío</p>
             </div>
             <Input
@@ -192,21 +192,21 @@ export function FormView({ onSubmit }: FormViewProps) {
             />
           </div>
           <DropdownField
-            label="C5 — ¿Revenue devengado al menos 6 meses?"
+            label="¿Revenue devengado al menos 6 meses?"
             value={data.tiene_revenue}
             onChange={v => update({ tiene_revenue: v as any })}
             options={["Sí", "No"]}
             tooltip="¿La compañía ha generado ingresos durante al menos 6 meses consecutivos?"
           />
           <DropdownField
-            label="C6 — ¿Aplicáis tax lease?"
+            label="¿Aplicáis tax lease?"
             value={data.tax_lease}
             onChange={v => update({ tax_lease: v as any })}
             options={["Sí", "No"]}
             tooltip="Si no sabes qué es el tax lease, probablemente no lo aplicáis. Selecciona No."
           />
           <DropdownField
-            label="C7 — ¿Riesgo vivo con ENISA?"
+            label="¿Riesgo vivo con ENISA?"
             value={data.riesgo_vivo_enisa}
             onChange={v => update({ riesgo_vivo_enisa: v as any })}
             options={["Sí", "No"]}
@@ -214,7 +214,7 @@ export function FormView({ onSubmit }: FormViewProps) {
           />
           {data.riesgo_vivo_enisa === "Sí" && (
             <CurrencyInput
-              label="C8 — Riesgo vivo ENISA en Balance"
+              label="Riesgo vivo ENISA en Balance"
               value={data.riesgo_vivo_balance}
               onChange={v => update({ riesgo_vivo_balance: v })}
               tooltip="Importe del préstamo vivo con ENISA en balance"
@@ -248,19 +248,19 @@ export function FormView({ onSubmit }: FormViewProps) {
         {/* Section E */}
         <Section id="E" title="Otras ayudas nacionales">
           <DropdownField
-            label="E1 — ¿CAPEX Industrial?"
+            label="¿CAPEX Industrial?"
             value={data.capex_industrial}
             onChange={v => update({ capex_industrial: v as any })}
             options={["Sí", "No"]}
           />
           <DropdownField
-            label="E2 — ¿Vas a contratar doctores?"
+            label="¿Vas a contratar doctores?"
             value={data.contratar_doctores}
             onChange={v => update({ contratar_doctores: v as any })}
             options={["Sí", "No"]}
           />
           <DropdownField
-            label="E3 — ¿La compañía va a internacionalizarse?"
+            label="¿La compañía va a internacionalizarse?"
             value={data.internacionalizar}
             onChange={v => update({ internacionalizar: v as any })}
             options={["Sí", "No"]}
@@ -318,19 +318,19 @@ export function FormView({ onSubmit }: FormViewProps) {
           </div>
 
           <DropdownField
-            label="F3 — ¿Propiedad intelectual en España?"
+            label="¿Propiedad intelectual en España?"
             value={data.ip_espana}
             onChange={v => update({ ip_espana: v as any })}
             options={["Sí", "No"]}
           />
           <DropdownField
-            label="F4 — ¿Bonifica Seguridad Social?"
+            label="¿Bonifica Seguridad Social?"
             value={data.bonifica_ss}
             onChange={v => update({ bonifica_ss: v as any })}
             options={["Sí", "No"]}
           />
           <DropdownField
-            label="F5 — ¿Tiene sello Pyme Innovadora?"
+            label="¿Tiene sello Pyme Innovadora?"
             value={data.sello_pyme}
             onChange={v => update({ sello_pyme: v as any })}
             options={["Sí", "No"]}

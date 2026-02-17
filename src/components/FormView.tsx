@@ -21,14 +21,12 @@ function SectionHeader({ id, title, open, onToggle }: {id: string;title: string;
     <CollapsibleTrigger
       onClick={onToggle}
       className="flex items-center justify-between w-full p-4 hover:bg-muted/50 transition-colors rounded-t-xl">
-
       <div className="flex items-center gap-3">
         <span className="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold">{id}</span>
         <h3 className="font-bold text-foreground">{title}</h3>
       </div>
       <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
     </CollapsibleTrigger>);
-
 }
 
 function Section({ id, title, children, defaultOpen = false }: {id: string;title: string;children: React.ReactNode;defaultOpen?: boolean;}) {
@@ -40,7 +38,6 @@ function Section({ id, title, children, defaultOpen = false }: {id: string;title
         <div className="pt-2 space-y-4">{children}</div>
       </CollapsibleContent>
     </Collapsible>);
-
 }
 
 function BalanceFields({ label, balance, onChange }: {label: string;balance: BalanceYear;onChange: (b: BalanceYear) => void;}) {
@@ -55,7 +52,6 @@ function BalanceFields({ label, balance, onChange }: {label: string;balance: Bal
   { key: "dividendo", label: "VIII. Dividendo a cuenta" },
   { key: "otros_instrumentos", label: "IX. Otros instrumentos de patrimonio" }];
 
-
   const pn = patrimonioNeto(balance);
 
   return (
@@ -67,14 +63,12 @@ function BalanceFields({ label, balance, onChange }: {label: string;balance: Bal
         label={f.label}
         value={balance[f.key]}
         onChange={(v) => onChange({ ...balance, [f.key]: v })} />
-
       )}
       <div className="pt-2 border-t border-border flex items-center justify-between">
         <span className="text-sm font-semibold text-foreground">Total Patrimonio Neto</span>
         <span className="font-mono text-primary text-lg font-extrabold">{pn.toLocaleString("es-ES")} €</span>
       </div>
     </div>);
-
 }
 
 export function FormView({ onSubmit }: FormViewProps) {
@@ -92,34 +86,34 @@ export function FormView({ onSubmit }: FormViewProps) {
         {/* Section A */}
         <Section id="A" title="Datos genéricos" defaultOpen>
           <DropdownField
-            label="A1 — Comunidad Autónoma"
+            label="Comunidad Autónoma"
             value={data.ccaa}
             onChange={(v) => update({ ccaa: v as any })}
             options={[...CCAA_LIST]}
             tooltip="Selecciona la CCAA donde tenéis el domicilio fiscal de la sociedad" />
 
           <DropdownField
-            label="A2 — ¿Auditáis cuentas anuales?"
+            label="¿Auditáis cuentas anuales?"
             value={data.audita}
             onChange={(v) => update({ audita: v as any })}
             options={["Sí", "No"]}
             tooltip="¿La empresa presenta cuentas anuales auditadas?" />
 
           <CurrencyInput
-            label="A3 — Caja en banco actual"
+            label="Caja en banco actual"
             value={data.caja}
             onChange={(v) => update({ caja: v })}
             tooltip="Importe de tesorería disponible hoy en cuentas bancarias" />
 
           <CurrencyInput
-            label="A4 — Gasto mensual promedio (últimos 3 meses)"
+            label="Gasto mensual promedio (últimos 3 meses)"
             value={data.gasto_mensual}
             onChange={(v) => update({ gasto_mensual: v })}
             tooltip="Gasto operativo mensual medio de los últimos 3 meses, sin contar financiación" />
 
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-foreground">
-              A5 — Runway (meses)
+              Runway (meses)
               <FieldTooltip text="Meses de supervivencia con la caja actual. Puedes sobreescribirlo manualmente." />
             </Label>
             <Input
@@ -131,7 +125,6 @@ export function FormView({ onSubmit }: FormViewProps) {
               }}
               className="font-mono"
               placeholder={String(rw)} />
-
             <p className="text-xs text-muted-foreground">Calculado: {rw.toFixed(2)} meses</p>
           </div>
         </Section>
@@ -147,12 +140,10 @@ export function FormView({ onSubmit }: FormViewProps) {
               label="Año -1"
               balance={data.balance_y1}
               onChange={(b) => update({ balance_y1: b })} />
-
             <BalanceFields
               label="Año -2"
               balance={data.balance_y2}
               onChange={(b) => update({ balance_y2: b })} />
-
           </div>
         </Section>
 
@@ -160,54 +151,52 @@ export function FormView({ onSubmit }: FormViewProps) {
         <Section id="C" title="Datos ENISA">
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-foreground">
-              C1 — Fecha última ampliación de capital
+              Fecha última ampliación de capital
               <FieldTooltip text="Fecha del último aumento de capital social registrado" />
             </Label>
             <Input
               type="date"
               value={data.fecha_ampliacion}
               onChange={(e) => update({ fecha_ampliacion: e.target.value })} />
-
           </div>
           <CurrencyInput
-            label="C2 — Importe última ampliación"
+            label="Importe última ampliación"
             value={data.importe_ampliacion}
             onChange={(v) => update({ importe_ampliacion: v })}
             tooltip="Importe en euros de la última ampliación" />
 
           <CurrencyInput
-            label="C3 — Notas convertibles pendientes"
+            label="Notas convertibles pendientes"
             value={data.notas_convertibles}
             onChange={(v) => update({ notas_convertibles: v })}
             tooltip="Si tienes notas convertibles pendientes de convertir, indica el importe. Si no, pon 0" />
 
           <div className="space-y-1.5">
             <Label className="text-sm font-medium text-foreground">
-              C4 — Fecha conversión notas
+              Fecha conversión notas
               <FieldTooltip text="Fecha prevista de conversión. Si no aplica, dejar vacío" />
             </Label>
             <Input
               type="date"
               value={data.fecha_conversion_notas}
               onChange={(e) => update({ fecha_conversion_notas: e.target.value })} />
-
           </div>
           <DropdownField
-            label="C5 — ¿Revenue devengado al menos 6 meses?"
+            label="¿Revenue devengado al menos 6 meses?"
             value={data.tiene_revenue}
             onChange={(v) => update({ tiene_revenue: v as any })}
             options={["Sí", "No"]}
             tooltip="¿La compañía ha generado ingresos durante al menos 6 meses consecutivos?" />
 
           <DropdownField
-            label="C6 — ¿Aplicáis tax lease?"
+            label="¿Aplicáis tax lease?"
             value={data.tax_lease}
             onChange={(v) => update({ tax_lease: v as any })}
             options={["Sí", "No"]}
             tooltip="Si no sabes qué es el tax lease, probablemente no lo aplicáis. Selecciona No." />
 
           <DropdownField
-            label="C7 — ¿Riesgo vivo con ENISA?"
+            label="¿Riesgo vivo con ENISA?"
             value={data.riesgo_vivo_enisa}
             onChange={(v) => update({ riesgo_vivo_enisa: v as any })}
             options={["Sí", "No"]}
@@ -215,11 +204,10 @@ export function FormView({ onSubmit }: FormViewProps) {
 
           {data.riesgo_vivo_enisa === "Sí" &&
           <CurrencyInput
-            label="C8 — Riesgo vivo ENISA en Balance"
+            label="Riesgo vivo ENISA en Balance"
             value={data.riesgo_vivo_balance}
             onChange={(v) => update({ riesgo_vivo_balance: v })}
             tooltip="Importe del préstamo vivo con ENISA en balance" />
-
           }
         </Section>
 
@@ -249,23 +237,22 @@ export function FormView({ onSubmit }: FormViewProps) {
         {/* Section E */}
         <Section id="E" title="Otras ayudas nacionales">
           <DropdownField
-            label="E1 — ¿CAPEX Industrial?"
+            label="¿CAPEX Industrial?"
             value={data.capex_industrial}
             onChange={(v) => update({ capex_industrial: v as any })}
             options={["Sí", "No"]} />
 
           <DropdownField
-            label="E2 — ¿Vas a contratar doctores?"
+            label="¿Vas a contratar doctores?"
             value={data.contratar_doctores}
             onChange={(v) => update({ contratar_doctores: v as any })}
             options={["Sí", "No"]} />
 
           <DropdownField
-            label="E3 — ¿La compañía va a internacionalizarse?"
+            label="¿La compañía va a internacionalizarse?"
             value={data.internacionalizar}
             onChange={(v) => update({ internacionalizar: v as any })}
             options={["Sí", "No"]} />
-
         </Section>
 
         {/* Section F */}
@@ -278,12 +265,10 @@ export function FormView({ onSubmit }: FormViewProps) {
                 label="Gasto I+D+i"
                 value={data.gasto_idi_deducciones_n2}
                 onChange={(v) => update({ gasto_idi_deducciones_n2: v })} />
-
               <CurrencyInput
                 label="Gasto subvencionado"
                 value={data.gasto_subvencionado_n2}
                 onChange={(v) => update({ gasto_subvencionado_n2: v })} />
-
             </div>
             <div className="space-y-4">
               <h4 className="text-sm font-semibold text-muted-foreground">N-1</h4>
@@ -291,12 +276,10 @@ export function FormView({ onSubmit }: FormViewProps) {
                 label="Gasto I+D+i"
                 value={data.gasto_idi_deducciones_n1 ?? data.gasto_idi_n1}
                 onChange={(v) => update({ gasto_idi_deducciones_n1: v })} />
-
               <CurrencyInput
                 label="Gasto subvencionado"
                 value={data.gasto_subvencionado_n1}
                 onChange={(v) => update({ gasto_subvencionado_n1: v })} />
-
             </div>
             <div className="space-y-4">
               <h4 className="text-sm font-semibold text-muted-foreground">N</h4>
@@ -304,12 +287,10 @@ export function FormView({ onSubmit }: FormViewProps) {
                 label="Gasto I+D+i"
                 value={data.gasto_idi_deducciones_n ?? data.gasto_idi_n}
                 onChange={(v) => update({ gasto_idi_deducciones_n: v })} />
-
               <CurrencyInput
                 label="Gasto subvencionado"
                 value={data.gasto_subvencionado_n}
                 onChange={(v) => update({ gasto_subvencionado_n: v })} />
-
             </div>
           </div>
           <div className="text-xs text-muted-foreground space-y-1 pt-2">
@@ -319,23 +300,22 @@ export function FormView({ onSubmit }: FormViewProps) {
           </div>
 
           <DropdownField
-            label="F3 — ¿Propiedad intelectual en España?"
+            label="¿Propiedad intelectual en España?"
             value={data.ip_espana}
             onChange={(v) => update({ ip_espana: v as any })}
             options={["Sí", "No"]} />
 
           <DropdownField
-            label="F4 — ¿Bonifica Seguridad Social?"
+            label="¿Bonifica Seguridad Social?"
             value={data.bonifica_ss}
             onChange={(v) => update({ bonifica_ss: v as any })}
             options={["Sí", "No"]} />
 
           <DropdownField
-            label="F5 — ¿Tiene sello Pyme Innovadora?"
+            label="¿Tiene sello Pyme Innovadora?"
             value={data.sello_pyme}
             onChange={(v) => update({ sello_pyme: v as any })}
             options={["Sí", "No"]} />
-
         </Section>
 
         {/* Submit */}
@@ -343,11 +323,10 @@ export function FormView({ onSubmit }: FormViewProps) {
           onClick={onSubmit}
           size="lg"
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-base h-14 rounded-xl">
-
           Ver resultados
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
       </div>
     </div>);
-
 }
+

@@ -1,4 +1,3 @@
-import { DISCLAIMER } from "@/lib/constants";
 import { CheckCircle, XCircle, AlertTriangle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -78,10 +77,6 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
 
-        {/* Disclaimer */}
-        <div className="mt-8 p-4 bg-muted rounded-lg">
-          <p className="text-[11px] text-muted-foreground leading-relaxed">{DISCLAIMER}</p>
-        </div>
       </div>
     </div>
   );
